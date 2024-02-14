@@ -1,0 +1,409 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\title{Week 1 Notes (Introduction to the Module)}
+
+\begin{document}
+
+\maketitle
+
+\section{Lecture Portion}
+
+\subsection{Motivation}
+
+One of the main reasons why it's important to discuss logic in the
+context of computer science is that it is very much possible (and
+often necessary) to be 100\% certain that a program will do what
+you want it to do.
+
+There are some limitation to this, most notably the halting problem.
+
+\subsection{Notation}
+
+A statement over another statement means that the upper statement
+implies the lower statement. These may be nested. 
+
+eg.
+\[
+\frac{\text{All men are mortal, Socrates is a man}}
+     {\text{Socrates is mortal}}
+\]
+
+\subsection{Types of Logic}
+
+\subsubsection{Aristotelian}
+
+Deals entirely with classes and belonging. Confusingly "X belongs
+to Y" means that the \textit{classhood} of X belongs to Y, not that
+X belongs to the set Y. For example, the statement X belongs to all
+Y makes Y a subset of X.
+
+There are four types of class relation:
+
+\begin{itemize}
+	\item a: belongs to every
+	\item e: belongs to no
+	\item i: belongs to some
+	\item o: does not belong to some
+\end{itemize}
+
+This results in a series of syllogisms:
+
+\begin{center}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{AaB,BaC}{AaC}
+	\end{equation}
+	\end{minipage}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{AeB,BaC}{AeC}
+	\end{equation}
+	\end{minipage}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{AaB,BiC}{AiC}
+	\end{equation}
+	\end{minipage}
+\end{center}
+
+\begin{center}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{AeB,BiC}{AoC}
+	\end{equation}
+	\end{minipage}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{MaN,MeX}{NeX}
+	\end{equation}
+	\end{minipage}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{MeN,MaX}{NeX}
+	\end{equation}
+	\end{minipage}
+\end{center}
+
+\begin{center}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{MeN,MiX}{NoX}
+	\end{equation}
+	\end{minipage}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{MaN,MoX}{NoX}
+	\end{equation}
+	\end{minipage}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{PaS,RaS}{PiR}
+	\end{equation}
+	\end{minipage}
+\end{center}
+
+\begin{center}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{PeS,RaS}{PoR}
+	\end{equation}
+	\end{minipage}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{PiS,RaS}{PiR}
+	\end{equation}
+	\end{minipage}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{PaS,RiS}{PiR}
+	\end{equation}
+	\end{minipage}
+\end{center}
+
+\begin{center}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{PoS,RaS}{PoR}
+	\end{equation}
+	\end{minipage}
+	\begin{minipage}{0.3\linewidth}
+	\begin{equation}
+		\frac{PeS,RiS}{PoR}
+	\end{equation}
+	\end{minipage}
+\end{center}
+
+\subsubsection{Boolean}
+
+Boolean logic uses not ($\neg$), and ($\wedge$) and or ($\vee$).
+
+For example:
+
+\begin{center}
+	\begin{minipage}{0.3\linewidth}
+	\begin{displaymath}
+		\frac{}{\neg(x \wedge \neg x)}
+	\end{displaymath}
+	\end{minipage}
+	\begin{minipage}{0.3\linewidth}
+	\begin{displaymath}
+		\frac{x \vee y \qquad \neg x}{y}
+	\end{displaymath}
+	\end{minipage}
+\end{center}
+
+This makes logic behave somewhat like arithmetic.
+Or ($\vee$) works a bit like addition ($+$),
+while and ($\wedge$) works something like muliplication ($\times$).
+
+There is no sense of "any", "some" or "none". Everything is taken
+to be known as either true or false, so translating statements into
+their equivalent in boolean logic can be hard in some cases.
+
+\subsubsection{Frege's}
+
+Frege extended Boole's logic to include "all" and "some".
+
+Frege's notation is unpopular and people tend to use a notation
+devised by Gentzen.
+
+We use $\forall$ to mean for all, and $\exists$ to mean for some.
+
+For example:
+
+\begin{center}
+	\begin{minipage}{0.3\linewidth}
+	\begin{displaymath}
+		\frac{\forall x . \Phi}{\Phi [t/x]}
+	\end{displaymath}
+	\end{minipage}
+	\begin{minipage}{0.3\linewidth}
+	\begin{displaymath}
+		\frac{\Phi [t/x]}{\exists x . \Phi}
+	\end{displaymath}
+	\end{minipage}
+\end{center}
+
+The first means that if $x.\Phi$ holds for all $x$,
+replacing $x$ with $t$ will also hold.
+The second means that if replacing $x$ with $t$ holds, then $x.\Phi$
+holds for at least some $x$.
+
+The symbol $\Phi$ represents a string and $x$ represents a substring location.
+
+\section{Tasks}
+
+\subsection{}
+
+\subsubsection{Make up an example per syllogism}
+
+\paragraph{$\frac{AaB,BaC}{AaC}$}
+Mortality belongs to all men, manhood belongs to all Socrates:
+therefore mortality belongs to all Socrates.
+
+\paragraph{$\frac{AeB,BaC}{AeC}$}
+No dog is green, all poodles are dogs: therefore no poodle is green.
+
+\paragraph{$\frac{AaB,BiC}{AiC}$}
+All women are mortal, some people are women: therefore some people are mortal.
+
+\paragraph{$\frac{AeB,BiC}{AoC}$}
+No apes have tails, some primates are apes:
+therefore not all primates have tails.
+
+\paragraph{$\frac{MaN,MeX}{NeX}$}
+All buckets are concave, no inflated footballs are concave:
+therefore no inflated footballs are buckets.
+
+\paragraph{$\frac{MeN,MaX}{NeX}$}
+No coconuts are purple, all ripe plums are purple:
+therefore no ripe plums are coconuts.
+
+\paragraph{$\frac{MeN,MiX}{NoX}$}
+No diamonds are conductive, some forms of carbon are conductive:
+therefore not all forms of carbon are diamonds.
+
+\paragraph{$\frac{MaN,MoX}{NoX}$}
+All cakes are sweet, not all foods are sweet:
+therefore not all foods are cake.
+
+\paragraph{$\frac{PaS,RaS}{PiR}$}
+All cats are silly, all cats are carnivores:
+therefore some carnivores are silly.
+
+\paragraph{$\frac{PeS,RaS}{PoR}$}
+No planets are undergoing fusion, all planets are celestial bodies:
+therefore not all celestial bodies are undergoing fusion.
+
+\paragraph{$\frac{PiS,RaS}{PiR}$}
+Some dogs are loyal, all dogs have bones:
+therefore some things with bones are loyal.
+
+\paragraph{$\frac{PaS,RiS}{PiR}$}
+All whales have fins, some whales are blue:
+therefore some blue things have fins.
+
+\paragraph{$\frac{PoS,RaS}{PoR}$}
+Not all cleaning products are bleach, all cleaning products are chemicals:
+therefore not all chemicals are bleach.
+
+\paragraph{$\frac{PeS,RiS}{PoR}$}
+No monkeys can fly, some monkeys like bananas:
+therefore not everything that likes bananas can fly.
+
+\subsubsection{
+	Explain the famous bug in Aristotle's logic,
+	considering $\frac{PaS,RaS}{PiR}$,
+	with $S$ = unicorns, $P$ = pink and $R$ = fluffy
+}
+
+Translating this into standard English gives:
+
+All unicorns are pink, all unicorns are fluffy:
+therefore some fluffy things are pink.
+
+Of course, this doesn't actually hold because it assumes that at least some
+unicorns exists, which isn't necessarily the case.
+
+\subsubsection{Find a written political argument, map it to
+premises and conclusions, and then discuss validity and soundness}
+
+For this we'll be examining the statement
+"It's literally giving somebody money for nothing"
+from the Guardian headline:
+"'It's literally giving somebody money for nothing':
+the battle to reform property leaseholds" \cite{guardianarticle}
+
+Premises:
+\begin{enumerate}
+	\item Money is being recieved
+	\item The thing being given is nothing
+\end{enumerate}
+
+ 
+
+\subsection{}
+
+\subsubsection{Attempt to create some given words from the MU
+system, explaining why not if not}
+Thoughts while attempting these:
+
+\begin{itemize}
+	\item You can make strings of I's which have length $2^n$.
+	\item You can remove any string of I's which have length $6n$.
+	\item You can multiply any string of I's by $2^n$.
+	\item It feels impossible to get any odd number of I's.
+	\item No power of 2 is a multiple of 6.
+	\item Working backwards might help.
+	\item I think I was over-abstracting in my head.
+		We can make use of IaddU to get odd numbers.
+		I was thinking of series of $6n$ I's as though they were
+		already deleting themselves or as III as though it was
+		already a U - but it isn't and the IaddU rules comes in
+		very handy.
+	\item This is best summarised as
+		"You can always remove III at the end", or
+		$\frac{\text{xIII}}{\text{x}}$.
+	\item In order to get MU, we may need an odd number of U's.
+		This would require an odd multiple of 3 of I's.
+		So a number like 3, 9, 15 etc.
+		This again feels impossible. To get an odd multiple of 3
+		we would need an even multiple of 3, which we can't do
+		using powers of 2.
+		However, we can also do numbers of the form $5 \cdot 2^n$.
+		We just need any multiple of 3 of the form $5 \cdot 2^n$.
+		That also can't exist - 2 and 5 would forever be the only
+		prime factors.
+		Another step must be required.
+	\item I suspect we have to make smart use of doubling.
+		It's worth remembering that lone U's can cause us to get
+		stuck if we're not careful.
+	\item Perhaps we don't need another insight after all, and we
+		can reuse the way we managed to get 5.
+		We can do any $2^n-3$. That still can't be of the form
+		$3n$, though.
+	\item There seems to be something going on to do with prime
+		numbers - does finding the first nonprime $2^n-3$ help?
+		This sequence is $1, 13, 29, 61, 125, 253$.
+		The first nonprime is 125. This feels like a dead end
+		because we're at a power of 5. I suspect that's all we'll
+		get - non-3 primes and their powers.
+	\item We can actually get any $2^n-3m$. Does this help?
+	\item Let's put that aside for a second, I want to try something.
+
+		MIIIIIU MIIIIIUIIIIIU MIIUUIIUU MIIUUII MIIUUIIIIUUII
+	\item Actually, let's create a set of the things that can
+		happen numerically to the number of I's.
+	\item This is ${\{\times 2, -3\}}$.
+	\item This can't ever produce 0, I don't think.
+	\item No, it can't. I'll put the proof of this in the section
+		below for MU.
+
+\end{itemize}
+
+\paragraph{MI}
+This is the axiomatic word - it can simply be asserted.
+
+\paragraph{MIU}
+MI (IaddU) MIU
+
+\paragraph{MII}
+MI (double) MII
+
+\paragraph{MIIIII}
+MI (double) MII (double) MIIII (double) MIIIIIIII 
+(IaddU) MIIIIIIIIU (bang) MIIIIIUU (pop) MIIIII
+
+\paragraph{ABC}
+This one isn't possible - the only letters that can exist are M, I
+(both introduced in the axiom) and U (introduced via IaddU).
+
+\paragraph{MIIUIIU}
+(proved above) MIIIII (double) MIIIIIIIIII (bang$\times 2$) MIIUIIU
+
+\paragraph{II}
+This one isn't possible - none of the rules allow the M to be removed. 
+
+\paragraph{MU}
+This one isn't possible - the number of I's cannot be of the form
+$3n$, and therefore cannot be 0. 
+
+\paragraph{Proof:}
+The rules have the following effects
+on the number of I's:
+
+\begin{itemize}
+	\item IaddU: No effect.
+	\item Double: $\times 2$.
+	\item Bang: $-3$.
+	\item Pop: No effect.
+\end{itemize}
+
+The initial number of I's is 1, a number of the form $3n+1$.
+The double rule will turn any number of the form $3n+1$ into
+a number of the form $3n-1$ and vice-versa.
+The bang rule will not change the form of a number of the form
+$3n+1$ or $3n-1$.
+
+Therefore, the number of I's will always be of the form
+$3n+1$ or $3n-1$, and never $3n$.
+
+\subsubsection{Write a program to create all MU system theorems}
+\subsubsection{Write a program that can test if a string is a
+theorem in the MU system}
+This is as simple as counting I's and ensuring it's not a multiple of 3. Any string with this property can be constructed.
+Proof: any string of I's of any length can be constructed by choosing a larger power of 2 of same form and taking three away as 
+many times as needed.
+
+then any arbirary string with U's in it can just be trivially constructed from a number of I's equal to I counter + 3 * U counter.
+\subsubsection{Suggest a meaning for the MU system}
+
+\begin{thebibliography}{}
+	\bibitem{guardianarticle}
+‘It’s literally giving somebody money for nothing’: the battle to reform property leaseholds
+https://www.theguardian.com/money/2024/feb/10/its-literally-giving-somebody-money-for-nothing-the-battle-to-reform-property-leaseholds
+(acessed 10 Feb 2024)
+\end{thebibliography}
+
+\end{document}

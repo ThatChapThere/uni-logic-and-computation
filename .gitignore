@@ -1,0 +1,10 @@
+# TeX generation files
+*.aux
+*.dvi
+*.fdb_latexmk
+*.fls
+*.log
+*.
+
+# Rust target directories
+target/
