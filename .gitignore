@@ -4,7 +4,9 @@
 *.fdb_latexmk
 *.fls
 *.log
+*.pyg
 *.
+_minted-notes
 
 # Rust target directories
 target/

@@ -1,5 +1,9 @@
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{nameref}
+\usepackage{minted}
+\usemintedstyle{tango}
 
 \title{Week 1 Notes (Introduction to the Module)}
 
@@ -390,20 +394,61 @@ Therefore, the number of I's will always be of the form
 $3n+1$ or $3n-1$, and never $3n$.
 
 \subsubsection{Write a program to create all MU system theorems}
+Completed. See \nameref{generate_code} for the code.
+
 \subsubsection{Write a program that can test if a string is a
 theorem in the MU system}
-This is as simple as counting I's and ensuring it's not a multiple of 3. Any string with this property can be constructed.
-Proof: any string of I's of any length can be constructed by choosing a larger power of 2 of same form and taking three away as 
-many times as needed.
+This is as simple as counting I's and ensuring the count is not
+of the form $3n$. Any string with this property can be constructed.
 
-then any arbirary string with U's in it can just be trivially constructed from a number of I's equal to I counter + 3 * U counter.
-\subsubsection{Suggest a meaning for the MU system}
+\paragraph{Proof:}
 
+\begin{itemize}
+	\item Arbirarily large numbers of consecutive I's
+		of the form $2^n$ can be
+		created of both the forms $3n+1$ and $3n-1$, because
+		powers of 2 always alternate between these two forms.
+
+	\item Arbirarily large numbers of consecutive I's can be
+		created of both the forms $3n+1$ and $3n-1$, because you
+		can simply create a larger power of 2 of the same form
+		and remove any amount of I's of the form $3n$ using the
+		sequence (IaddU) (bang) (pop) for each 3 items.
+	
+	\item Arbitraryly placed U's also pose no problem. Simply
+		construct a string with
+		$3\text{U}_{count}+\text{I}_{count}$
+		I's (this will still be of a correct form mod 3
+		since we are adding a multiple of 3).
+		Then it's trivial to do the desired (bang) steps.
+	
+\end{itemize}
+
+See \nameref{validate_code} for the code.
+
+\pagebreak
 \begin{thebibliography}{}
 	\bibitem{guardianarticle}
 ‘It’s literally giving somebody money for nothing’: the battle to reform property leaseholds
 https://www.theguardian.com/money/2024/feb/10/its-literally-giving-somebody-money-for-nothing-the-battle-to-reform-property-leaseholds
 (acessed 10 Feb 2024)
 \end{thebibliography}
+
+\section*{Appendix}
+
+\subsection*{main.rs}
+\begin{inputminted}{rust}{../../code/01/code/src/main.rs}
+
+\pagebreak
+\subsection*{generate.rs}
+\label{generate_code}
+\begin{inputminted}{rust}{../../code/01/code/src/generate.rs}
+\end{inputminted}
+
+\pagebreak
+\subsection*{validate.rs}
+\label{validate_code}
+\begin{inputminted}{rust}{../../code/01/code/src/validate.rs}
+\end{inputminted}
 
 \end{document}
