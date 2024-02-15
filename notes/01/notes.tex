@@ -1,7 +1,9 @@
 \documentclass{article}
 \usepackage{amsmath}
-\usepackage{verbatim}
 \usepackage{nameref}
+\usepackage[a4paper, margin=3cm]{geometry}
+\usepackage{fourier}
+\usepackage{inconsolata}
 \usepackage{minted}
 \usemintedstyle{tango}
 
@@ -431,21 +433,20 @@ See \nameref{validate_code} for the code.
 	\bibitem{guardianarticle}
 ‘It’s literally giving somebody money for nothing’: the battle to reform property leaseholds
 https://www.theguardian.com/money/2024/feb/10/its-literally-giving-somebody-money-for-nothing-the-battle-to-reform-property-leaseholds
-(acessed 10 Feb 2024)
+(accessed 10 Feb 2024)
 \end{thebibliography}
 
 \section*{Appendix}
 
 \subsection*{main.rs}
 \begin{inputminted}{rust}{../../code/01/code/src/main.rs}
+\end{inputminted}
 
-\pagebreak
 \subsection*{generate.rs}
 \label{generate_code}
 \begin{inputminted}{rust}{../../code/01/code/src/generate.rs}
 \end{inputminted}
 
-\pagebreak
 \subsection*{validate.rs}
 \label{validate_code}
 \begin{inputminted}{rust}{../../code/01/code/src/validate.rs}
