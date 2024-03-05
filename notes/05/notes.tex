@@ -1,0 +1,40 @@
+\section{Lecture Portion}
+\Subsection{Turing's Model}
+It's actually equivalent to lambda calculus but it was published later.
+It was a simplified model based on the punch tape / punch card machines of the time.
+
+A Turing maching has two components.
+1. A finite state machine
+2. An unlimited tape (this is different from being infinite, it's more like an all-you-can-eat).
+
+There exists one Turing Machine per possible program.
+
+Each cell can store the symbol S_1 or S_0.
+Only one location on the tape can be active at any given time.
+Every state transition depends on the active tape state.
+Every transition can:
+  Write to the tape at the active location.
+  Move the active location one to the left or right.
+  Both (actually does it have to be both? Figure this out.)
+
+[Insert stuff about ways of notating a FSM]
+
+If no action is given then we halt (this is relevant later when we discuss the halting problem.
+
+Starting off:
+  state = q_1
+  location = 1
+  tape has a finite number of ones on it (presumably finitely far apart?)
+
+This can be modelled as logic (write out).
+
+The rules are strictly deterministic, one state always implies at most one other state, so paralellisation is harder.
+
+Task:
+Use doubling program from slides (this isn't binary doubling, it's a tally doubling).
+
+I'll start with 3.
+
+11
+
+
