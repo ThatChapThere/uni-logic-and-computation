@@ -6,7 +6,7 @@
 *.log
 *.pyg
 *.
-_minted-notes
+_minted-notes/
 
 # Rust target directories
 target/

@@ -1,92 +1,130 @@
-1. Applications of Lambda Calculus
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{nameref}
+\usepackage[a4paper, margin=3cm]{geometry}
+\usepackage{fourier}
+\usepackage{inconsolata}
+\usepackage{minted}
+\usemintedstyle{tango}
 
-Boolean Logic
+\title{Week 4 Notes (Lambda Calculus Applications and Meta-Logic)}
 
+\begin{document}
+
+\maketitle
+
+\section{Lecture Portion}
+
+\subsection{Applications of Lambda Calculus}
+
+\subsubsection{Boolean Logic}
 We can define true and false:
-T = \xy.x
-F = \xy.y
+\[ T = \lambda xy.x \]
+\[ F = \lambda xy.y \]
+We can also define logical operators:
+\begin{align*}
+	\land & = \lambda xy.xyF \\
+	 \lor & = \lambda xy.xTy \\
+	\lnot & = \lambda x.xFT
+\end{align*}
+\paragraph{Examples:}
+\begin{align}
+	                  \land TT = & T \\
+	                   \lor TF = & T \\
+	\land ( \lor F (\lnot T))T = & F
+\end{align}
+\paragraph{Exercise:}
+Make sure these work.
 
-and = \xy.xyF
-or = \xy.xTy
-not = \x.xFT
+\begin{enumerate}
+	\item \(\land TT = & T \)
+		\[ (\lambda xy.xyF)(\lambda xy.x)(\lambda xy.x) \]
+		Convert the symbols:
+		\[ (\lambda xy.xyF)(\lambda ab.a)(\lambda cd.c) \]
+		\[ (\lambda ab.a)(\lambda cd.c)F \]
+		\[ (\lambda cd.c) = T \]
+	\item \( \lor TF = & T \)
+		\[ (\lambda xy.xFt)(\lambda ab.a)(\lambda cd.d) \]
+		\[ (\lambda ab.a)F(\lambda cd.d) \]
+		\[ (\lambda ab.a)(\lambda ef.f)(\lambda cd.d) \]
+		\[ (\lambda ef.f) = F \]
+		Something must be wrong here...
+	\item \( \land ( \lor F (\lnot T))T = & F \)
+\end{enumerate}
 
-examples:
+Another nice thing you can do is:
+\[ Q = \lambda bxy.bxy \]
+which defines an operator that works with questions. That is to say,
+if the first argument is a boolean it will return the second
+argument on true and the third argument on false.
 
-true and true = true
-true or false = true
-and(or(false, (not true)), true) = false
+\paragraph{Examples:}
+\[ QTcd = c \]
+\[ QFc(\lambda x.xx) = \lambda x.xx \]
+\[ Q(\land ( \lor F (\lnot T))T)cd = d \]
 
-exercise:
+\subsubsection{Church Numerals}
+We can define numerals like so:
 
-make sure these work
-true and true
-(\xy.xyF)(\xy.x)(\xy.x)
-convert to different symbols
-(\xy.xyF)(\ab.a)(\cd.c)
-(\ab.a)(\cd.c)F
-(\cd.c) = true
+\begin{align*}
+	0 & = \lambda sz.z \\
+	1 & = \lambda sz.s(z) \\
+	2 & = \lambda sz.s(s(z)) \\
+	3 & = \lambda sz.s(s(s(z))) \\
+	4 & = \lambda sz.s(s(s(s(z)))) \\
+	\ldots
+\end{align*}
+ 
+Like with the booleans, these seem arbitrary but actually end up
+being excellent choices for definitions.
 
-true or false
-(\xy.xFt)(\ab.a)(\cd.d)
-(\ab.a)F(\cd.d)
-(\ab.a)(\ef.f)(\cd.d)
-(\ef.f) = false
+The symbols here form a mnemonic: $s$ for successor, $z$ for zero.
+Note that this is just a mnemonic. The letter $z$ doesn't actually
+represent 0, that would be infinite self-reference!
 
-and(or(false, (not true)), true) = false
-()
+We can define a sucessor function (add one):
+\[ S = \lambda wyx.y(wyx) \]
 
-Another nice thing you can do is (for questions):
 
-Q = \bxy.bxy
-QTcd = c
-QFc(\x.xx) = \x.xx
-Q(lots of stuff that = false)cd = d
+\paragraph{Exercise:}
+Perform the following operations:
 
-Church Numerals
-0 = \sz.z
-1 = \sz.s(z)
-2 = \sz.s(s(z))
+(Note:
+\( \lambda wyx = \lambda w.\lambda y.\lambda x. = \lambda w.\lambda yx. \)
+)
 
-(mnemonics: s for successor, z for zero)
-
-we can define sucessor function (add one)
-S = \wyx.y(wyx)
-
-\wyx = \w.\y.\x. = \w.\yx.
-
-Exercise:
 S0
-(\wyx.y(wyx))(\sz.z)
-(\w.\yx.y(wyx))(\sz.z)
-\yx.y((\sz.z)yx)
-\yx.y(x) = 1
+\[ (\lambda wyx.y(wyx))(\lambda sz.z) \]
+\[ (\lambda w.\lambda yx.y(wyx))(\lambda sz.z) \]
+\[ \lambda yx.y((\lambda sz.z)yx) \]
+\[ \lambda yx.y(x) = 1 \]
 
 S2
-(\wyx.y(wyx))(\sz(s(s(z))))
+\[ (\lambda wyx.y(wyx))(\lambda sz(s(s(z)))) \]
 
 Addition:
-+ = \ab.aSb
++ = \lambda ab.aSb
 (bear in mind that numbers are also iterators!)
 
-+23 = 2S3 = (\sz.s(s(z))) (\wyx.y(wyx)) (\sz.s(s(s(z))))
++23 = 2S3 = (\lambda sz.s(s(z))) (\lambda wyx.y(wyx)) (\lambda sz.s(s(s(z))))
 = S4 = 5
 
 This constitutes a proof that 2+3=5. This is an example of the duality between programs and proofs.
 
 Multiplication:
-* = \xyz.x(yz)
+* = \lambda xyz.x(yz)
 Godel's theorem applies to every logic that can represent addition and multiplication.
 
 Pairs:
 represent an ordered pair (a, b)
 
-pair = \abz.zab
+pair = \lambda abz.zab
 
-pair a b = \z.zab
+pair a b = \lambda z.zab
 
 We can define functions to access elements
-first = \p.Tp
-second = \p.Fp
+first = \lambda p.Tp
+second = \lambda p.Fp
 
 Predecessor function:
 (copy from notes. no intuitive way of explaining this)
@@ -94,16 +132,16 @@ Predecessor function:
 Comparators:
 
 is zero:
-Z = \n.nFT
+Z = \lambda n.nFT
 test x >= y
-G = \xy.Z(xPy)
+G = \lambda xy.Z(xPy)
 test x = y
-E = \xy.AND(Gxy)(Gyx) (possible mistake?)
+E = \lambda xy.AND(Gxy)(Gyx) (possible mistake?)
 
-Recursion:
+\subsubsection{Recursion}
 
 Some expressions don't halt
-eg. (\x.xx)(\x.xx)
+eg. (\lambda x.xx)(\lambda x.xx)
 
 Consider:
 (stuff for Y combinator)
@@ -116,7 +154,7 @@ YR5 = 15
 
 This is the final part that make it Church complete.
 
-2. Meta logic
+\subsection{Meta-Logic}
 
 Meta means something like study from outside, or an application of a subject to itself. From the greek word meaning after/beyond.
 Originally from Aristotle's metaphysics, which was just a sequel.
@@ -137,3 +175,16 @@ Halting Problem Proof:
 [fill this in]
 
 It's a function constructed specifically to halt if the input does not and vice-versa.
+
+\section{Tasks}
+
+\subsection{Try some Boolean logic and Church arithmetic in a lambda interpreter and/or by hand.}
+\subsection{Do the exercises in the lambda tutorial pdf.}
+\subsection{Discuss the design of a lambda calculus interpreter:}
+\subsubsection{eg. how does pylambda work?}
+\subsubsection{eg. does pylambda has bugs thatyou could fix?}
+\subsubsection{eg. design and build a better pylambda.}}
+\subsection{Can you convince yourself and others of the Halting problem proof?}
+\subsection{What does the Halting problem mean for computation?}
+
+\end{document}
