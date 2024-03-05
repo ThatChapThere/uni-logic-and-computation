@@ -18,6 +18,7 @@ Every transition can:
   Both (actually does it have to be both? Figure this out.)
 
 [Insert stuff about ways of notating a FSM]
+[todo subsubs]
 
 If no action is given then we halt (this is relevant later when we discuss the halting problem.
 
@@ -33,8 +34,38 @@ The rules are strictly deterministic, one state always implies at most one other
 Task:
 Use doubling program from slides (this isn't binary doubling, it's a tally doubling).
 
-I'll start with 3.
+We start with 3.
 
-11
+111
 
+\subsection{Register Machines}
+Every register can have any positive integer instead of just 1 or 0.
+You can add or remove one instead of setting to 0 or 1.
+You can prove this is equivalent to a turing machine by writing a virtual machine.
+A good intuition for this is the fact that you can say that numbers are sets of ones separated by single zeroes.
 
+\subsection{Metalogic of Turing Machines}
+\subsubsection{Finite Sets}
+We can use ||S|| to mean the size of set S.
+Two sets have the same size if you can pair their elements 1:1.
+[fill in with example]
+
+\subsubsection{Natural Numbers}
+Let's define ||N|| = aleph 0
+We can pair this with evens, primes, fractions, and even programs.
+This is clear if you just think of code as a series of 
+
+\subsubsection{Larger Infinities}
+Cantor showed in 1891 that the set of all functions has count > (cardinality?) aleph 0.
+
+Begin by supposing that we have a way of pairing every function with a natural number.
+We can write all functions as a list of lists.
+
+Say every function has an output of 1 or 0. (Not needed though, we can just use != instead of = !). (maybe i'm wrong, so go with binary after all, it's in the notes as such.)
+
+We can make a new function with the negative along the long diagonal of the infinite matrix.
+Now we have a new function that matches none of the functions on the list.
+
+Therefore by contradiction the functions aren't countable.
+
+\subsubsection{Uncomputable Functions}
