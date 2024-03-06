@@ -1,29 +1,107 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{nameref}
+\usepackage[a4paper, margin=3cm]{geometry}
+\usepackage{fourier}
+\usepackage{inconsolata}
+\usepackage{tikz-cd}
+\usetikzlibrary{shapes.geometric}
+\usepackage{minted}
+\usemintedstyle{tango}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\title{Week 5 Notes (Turing Machines)}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
 \section{Lecture Portion}
-\Subsection{Turing's Model}
+
+\subsection{Turing Machines}
+\subsubsection{Turing's Model}
 It's actually equivalent to lambda calculus but it was published later.
 It was a simplified model based on the punch tape / punch card machines of the time.
 
-A Turing maching has two components.
-1. A finite state machine
-2. An unlimited tape (this is different from being infinite, it's more like an all-you-can-eat).
+A Turing maching has two components:
+\begin{enumerate}
+	\item A finite state machine.
+	\item An unlimited tape (this is different from being infinite, it's more like an all-you-can-eat).
+\end{enumerate}
 
 There exists one Turing Machine per possible program.
 
-Each cell can store the symbol S_1 or S_0.
-Only one location on the tape can be active at any given time.
-Every state transition depends on the active tape state.
-Every transition can:
-  Write to the tape at the active location.
-  Move the active location one to the left or right.
-  Both (actually does it have to be both? Figure this out.)
+\begin{itemize}
+	\item Each cell can store the symbol $S_1$ or $S_0$.
+	\item Only one location on the tape can be active at any given time.
+	\item Every state transition depends on the active tape state
+		and the FSM state.
+	\item Every transition can:
+		\begin{itemize}
+			\item Write to the tape at the active location.
+			\item Move the active location one to the left or right.
+			\item (Both? actually does it have to be both? Figure this out.)
+				\footnote{
+					I actually looked this up and there's a distinction between 4-tuple
+					and 5-tuple Turing machines. The 4-tuple model seems to be the one
+					used in the workshop slides and this model is one where you either
+					perform a movement or a write, while the 5-tuple model is one where
+					you perform both.
+					They're pretty clearly mathematically equivalent though, since you
+					can just use an intermediate state in the 4-tuple model to know to
+					perform two actions.
+				}
+			\item Change the state of the machine.
+		\end{itemize}
+\end{itemize}
 
-[Insert stuff about ways of notating a FSM]
-[todo subsubs]
+There are many ways of describing an FSM. You can use a table
+(\ref{eq:table}), a flowchart (\ref{eq:flowchart}) or simply
+a list of quadruples (\ref{eq:quadruples}).
+
+\begin{center}
+\begin{minipage}{0.3\textwidth}
+\begin{equation} \label{eq:table}
+\begin{array}{c|c c}
+	    & S_0     & S_1  \\
+	\hline
+	q_1 & S_1 q_1 & Lq_2 \\
+	q_2 & S_1 q_2 & Lq_3 \\
+	q_3 & S_1 q_3        \\
+\end{array}
+\end{equation}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\begin{equation} \label{eq:flowchart}
+	\begin{tikzcd}
+		\tikz \path (0, 0) node(a) [circle, draw] {$q_1$};
+		\arrow[loop above, "S_0:S_1"]
+		\arrow[r, "S_1:L"]
+		\arrow[r]
+		&\tikz \path (0, 0) node(b) [circle, draw] {$q_2$};
+		\arrow[loop above, "S_0:S_1"]
+		\arrow[r, "S_1:L"]
+		&\tikz \path (0, 0) node(b) [circle, draw] {$q_3$};
+		\arrow[loop above, "S_0:S_1"]
+	\end{tikzcd}
+\end{equation}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\begin{equation} \label{eq:quadruples}
+	\begin{array}{c}
+	q_1 S_0 S_1 q_1, q_1 S_1 Lq_2 \\
+	q_2 S_0 S_1 q_2, q_2 S_1 Lq_3 \\
+	q_3 S_0 S_1 q_3 \\
+	\end{array}
+\end{equation}
+\end{minipage}
+\end{center}
 
 If no action is given then we halt (this is relevant later when we discuss the halting problem.
 
 Starting off:
-  state = q_1
+  state = $q_1$
   location = 1
   tape has a finite number of ones on it (presumably finitely far apart?)
 
@@ -31,14 +109,15 @@ This can be modelled as logic (write out).
 
 The rules are strictly deterministic, one state always implies at most one other state, so paralellisation is harder.
 
+\subsubsection{Task}
 Task:
 Use doubling program from slides (this isn't binary doubling, it's a tally doubling).
 
 We start with 3.
 
-111
+\underset{1}111
 
-\subsection{Register Machines}
+\subsubsection{Register Machines}
 Every register can have any positive integer instead of just 1 or 0.
 You can add or remove one instead of setting to 0 or 1.
 You can prove this is equivalent to a turing machine by writing a virtual machine.
@@ -51,7 +130,7 @@ Two sets have the same size if you can pair their elements 1:1.
 [fill in with example]
 
 \subsubsection{Natural Numbers}
-Let's define ||N|| = aleph 0
+Let's define $\lVert N \rVert = \aleph_0$.
 We can pair this with evens, primes, fractions, and even programs.
 This is clear if you just think of code as a series of 
 
@@ -69,3 +148,19 @@ Now we have a new function that matches none of the functions on the list.
 Therefore by contradiction the functions aren't countable.
 
 \subsubsection{Uncomputable Functions}
+
+\section{Tasks}
+
+\subsection{Carry out the TM doubling program in full}
+
+\pagebreak
+%\biliographystyle{ieeetr}
+%\bibliography{refs}
+
+\section*{Appendix}
+
+\subsection*{[Filename]}
+\begin{inputminted}{rust}{../code/01/code/src/main.rs}
+\end{inputminted}
+
+\end{document}

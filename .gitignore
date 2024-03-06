@@ -6,6 +6,9 @@
 *.log
 *.pyg
 *.
+*.bbl
+*.blg
+*.toc
 _minted-notes/
 
 # Rust target directories
